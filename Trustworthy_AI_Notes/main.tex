@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}	% Para caracteres en español
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{multirow,booktabs}
+\usepackage[table]{xcolor}
+\usepackage{fullpage}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage{amsmath}
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{reg}{Rule}
+\newtheorem{exer}{Exercise}
+\newtheorem{note}{Note}
+\begin{document}
+\setcounter{section}{8}
+\title{Chapter 9 Review Notes}
+
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE \bf Trustworthy AI in Society}\\
+Ayush M
+\end{center}
+\section{Importance}
+The European Union enacted the right to explanation which was
+incorporated in the EU General Data Protection Regulation (GDPR)
+in 2018:
+[...] In any case, such processing should be subject to suitable
+safeguards, which should include specific information to the data
+subject and the right to obtain human intervention, to express his or
+her point of view, to obtain an explanation of the decision reached
+after such assessment and to challenge the decision
+\begin{note}
+\textbf{Explainability more important then ever}
+\end{note}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{image.png}
+    \caption{Explainability Trends}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{Explainability vs Interpretability}
+“An AI system is explainable if the task model is intrinsically interpretable (here the AI system is the task model) or if
+the non-interpretable task model is complemented with an interpretable and faithful explanation (here the AI system also
+contains a post-hoc explanation)
+\\
+Accuracy Increases as Interpretability decreases, generally
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{black_glass.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
+\begin{shaded}
+\textbf{The Tidal Force} \newline
+\begin{equation}
+F_{tide} = -GM_mm(\frac{\hat{d}}{d^2}-\frac{\hat{d_0}}{d_0^2})
+\end{equation}
+Where:
+\begin{equation*}
+\begin{split}
+G = \text{Gravitational Constant} \\
+d = \text{Object's Position Relative to Moon} \\
+d_0 = \text{Earth's Center Relative to the moon}\\
+M_m = \text{Mass of the moon}
+\end{split}
+\end{equation*}
+\end{shaded}
+\newpage
+\section{Federated Learning}
+“Federated Learning is a machine learning setting where multiple
+entities (clients) collaborate in solving a machine learning problem,
+under the coordination of a central server or service provider. Each
+client’s raw data is stored locally and not exchanged or transferred;
+instead, focused updates intended for immediate aggregation are used
+to achieve the learning objective.”
+\section{Differential Privacy}
+“Differential privacy addresses the paradox of learning nothing
+about an individual while learning useful information about a
+population.”
+\section{Glass Box Models}
+\begin{itemize}
+    \item Linear Models
+    \item Generalized Additive Models
+    \item Explainable Boosting Machines
+    \item Decision Trees
+    \item Rule Based Approaches
+\end{itemize}
+\subsection{Linear Models}
+Literally just least squares ols. you get a bunch of betas as you fit a x to a y.\\
+Regularization\\
+Can use ridge, lasso, elastic net etc. 
+\subsubsection{Bayesian Inference}
+Prior doesn't need regularization
+
+\subsection{Log Reg}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{logreg.png}
+    \caption{Log reg formula}
+    \label{fig:placeholder}
+\end{figure}
+\subsection{Generalized Additive Models}
+Sum of functions
+\subsection{Explainable Boosting}
+Sum of functions and sum of cross-interaction functions
+\subsubsection{Regression Trees}
+Recursive Splitting of samples in every level of the tree such as to minimize error
+\subsubsection{Tree pruning}
+Avoid overfitting with a fully grown tree
+\subsubsection{Classification Tree}
+Uses error metrics based on purity of a region. Generally Unstable
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{class_tree.png}[h]
+    \caption{Classification Tree}
+    \label{fig:placeholder}
+\end{figure}
+\subsection{RUG}
+Builds rules (boolean) to classify, very interpretable, not as good performance
+
+
+\section{Unboxing}
+\section{LIME}
+Explains any model by approximating with an interpretable model. Explains locally.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{lime.png}
+    \caption{Lime working}
+    \label{fig:placeholder}
+\end{figure}
+\subsection{Working}
+\begin{itemize}
+    \item Create perturbed samples around the local point $x_i$
+    \item Compute $f(x_i)$ for each perturbed sample from black box model
+    \item assign weights to the samples based on distance from $x_i$
+    \begin{equation*}
+       \pi_{x_0}(z_i) = \exp\left(-\frac{D(x_0, z_i)^2}{\sigma^2}\right) 
+    \end{equation*}
+    \item minimize weighted error + model complexity (lasso)
+
+\end{itemize}
+\subsection{SP-LIME}
+Submodular pick LIME takes some local explanations and constructs a global explanation
+\begin{itemize}
+    \item Compute Feature Importance for feature j and sample i
+    \begin{equation*}
+        I_j = \sqrt{\sum_{i=1}^n |W_{ij}|}
+    \end{equation*}
+    \item define a coverage function c(V, W, I)
+    \item greedily pick n explanations which increase coverage the most
+    
+\end{itemize}
+\section{SHAP}
+SHAP gives each feature an importance value for a local prediction.
+slower than lime, but more stable and guarantees consistency
+\section{Counterfactual Explanations}
+Local explanation (seen before like LIME and SHAP). Tells you what you need to change for one sample to give it the opposite decision (changes to data required to make -1 '+1')
+\subsection{LPP}
+minimize distance from counterfactual \\
+h is the fitted model
+\begin{align*}
+  min& d(\hat{x}, x) \\
+  s.t.& \hat{h}(x) \geq threshold,\\
+  &x \in X
+\end{align*}
+\subsection{What an explanation needs}
+\begin{itemize}
+  \item Proximity: how close counterfactual is to x must be nearby
+  \item Sparsity : CE should differ from x in few features
+  \item Coherence: CE should be mapped back to input feature space after one hot encoding
+  \item Actionability: Has to be things an individual can acutally change
+  \item Data Manifold Closeness : CEs should be close to the observed data
+  \item Causality: Any known causal relationships must be reflected
+  \item Diversity: A set of explanations which differ in atleast one feature
+\end{itemize}
+\section{Optimization with Constraint Learning}
+Trust region constraints: basically force the solution to be in the vicinity of the observed data\\
+and then you add other constraints so that the solution of the lpp has everything an explanation needs
+\section{Robust Counterfactual Explanation}
+Provide infinitely many solutions\\
+Derive a method which guarantees full robustness\\
+Set an uncertainty set for all counterfactuals which could be solutions\\
+\note{Problem: This causes infinite constraints, with no dual possibility}
+\subsection{Master and Adversarial Approach}
+master: solve the problem with a subset of the constraints, adversarial: find the constraint with max violation, and then put the max violated back into the master problem and repeat
+\section{Symbolic Regression}
+Find a equation that best fits the dataset
+\subsection{Genetic Programming}
+Function can be represented as a tree, and then new trees are made by mixing leaves with a genetic algorithm
+\subsection{Linear Optimization}
+\subsection{ECSEL (Explainable Classification via Signomial Equation Learning)}
+Signomial function is a sum of monomials
+\end{document}
