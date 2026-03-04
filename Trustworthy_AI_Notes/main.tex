@@ -210,4 +210,28 @@ Function can be represented as a tree, and then new trees are made by mixing lea
 \subsection{Linear Optimization}
 \subsection{ECSEL (Explainable Classification via Signomial Equation Learning)}
 Signomial function is a sum of monomials
+\section{Federated Learning}
+Model training network, and testing network\\
+Centralized and decentralized Network\\
+Centralized network really expensive and requires syncing
+\subsection{Working}
+Average error computation of partitioned data -> sent to server -> optimization model to minimize weighted average of all datasets\\
+Clients send gradients to server\\
+Server does model averaging with clients doing local SGD
+\subsection{Federated Averaging}
+C: fraction of clients updating (global batch size)\\
+C$<$1: some dropout, some clients don't update
+E: Number of epochs of local data
+B: Local batch size for each client
+\subsection{Challenges}
+\begin{itemize}
+  \item Communication Cost
+  \item Heterogeneity in clients
+        \item Data Privacy
+        \item Fairness
+        \item Personalization
+        \end{itemize}
+\section{Differential Privacy}
+local sgd then global sgd
+
 \end{document}
